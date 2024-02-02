@@ -10,7 +10,7 @@ import java.time.ZonedDateTime
  *
  * @param value the number of days that have passed since November 17, 1858, 0:00 in the Gregorian calendar
  */
-class ModifiedJulianDate(private var value: Double) {
+class ModifiedJulianDate(private val value: Double) {
     /**
      * @return the number of days that have passed since November 17, 1858, 0:00 in the Gregorian calendar
      */
@@ -18,11 +18,25 @@ class ModifiedJulianDate(private var value: Double) {
         return value
     }
 
+    /**
+     * Creates a [JulianDate] which corresponds to this [ModifiedJulianDate].
+     *
+     * @return a corresponding [JulianDate]
+     */
+    fun toJulianDate(): JulianDate {
+        return JulianDate(value - OFFSET_TO_JULIAN_DATE)
+    }
+
     override fun toString(): String {
         return value.toString()
     }
 
     companion object {
+        /**
+         * The offset between a [JulianDate] and the corresponding [ModifiedJulianDate].
+         */
+        const val OFFSET_TO_JULIAN_DATE = -2_400_000.5
+
         /**
          * The reference epoch, meaning that the [ModifiedJulianDate] `0.0` corresponds to this date in the Gregorian calendar.
          */
