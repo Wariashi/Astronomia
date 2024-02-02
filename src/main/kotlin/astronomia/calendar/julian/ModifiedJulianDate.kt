@@ -3,6 +3,7 @@ package de.wariashi.astronomia.calendar.julian
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 /**
  * The [ModifiedJulianDate] corresponds to the number of days that have passed since November 17, 1858, 0:00 in the Gregorian calendar.
@@ -39,7 +40,16 @@ class ModifiedJulianDate(private var value: Double) {
          */
         fun now(): ModifiedJulianDate {
             val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
-            val currentTimeInEpochSeconds = currentDateTime.toEpochSecond()
+            return of(currentDateTime)
+        }
+
+        /**
+         * Creates a [ModifiedJulianDate] representing the given time.
+         *
+         * @return a [ModifiedJulianDate] representing the given time
+         */
+        fun of(zonedDateTime: ZonedDateTime): ModifiedJulianDate {
+            val currentTimeInEpochSeconds = zonedDateTime.toEpochSecond()
             val referenceSeconds = referenceEpoch.toEpochSecond()
             val differenceInSeconds = currentTimeInEpochSeconds - referenceSeconds
             val julianDay = differenceInSeconds.toDouble() / SECONDS_PER_DAY.toDouble()
