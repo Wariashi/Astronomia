@@ -60,6 +60,8 @@ class ModifiedJulianDate(private val value: Double) {
         /**
          * Creates a [ModifiedJulianDate] representing the given time.
          *
+         * @param zonedDateTime the time reference for creating the [ModifiedJulianDate]
+         *
          * @return a [ModifiedJulianDate] representing the given time
          */
         fun of(zonedDateTime: ZonedDateTime): ModifiedJulianDate {

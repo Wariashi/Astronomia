@@ -19,6 +19,15 @@ class JulianDate(private val value: Double) {
     }
 
     /**
+     * Creates a [J2000] which corresponds to this [JulianDate].
+     *
+     * @return a corresponding [J2000]
+     */
+    fun toJ2000(): J2000 {
+        return J2000(value + J2000.OFFSET_TO_JULIAN_DATE)
+    }
+
+    /**
      * Creates a [ModifiedJulianDate] which corresponds to this [JulianDate].
      *
      * @return a corresponding [ModifiedJulianDate]
@@ -54,6 +63,8 @@ class JulianDate(private val value: Double) {
 
         /**
          * Creates a [JulianDate] representing the given time.
+         *
+         * @param zonedDateTime the time reference for creating the [JulianDate]
          *
          * @return a [JulianDate] representing the given time
          */
