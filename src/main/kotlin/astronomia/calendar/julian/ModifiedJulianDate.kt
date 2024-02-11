@@ -43,9 +43,9 @@ class ModifiedJulianDate(private val value: Double) {
         private val referenceEpoch = LocalDateTime.of(1858, 11, 17, 0, 0).atOffset(ZoneOffset.UTC)
 
         /**
-         * The number of seconds in a day.
+         * The number of milliseconds in a day.
          */
-        private const val SECONDS_PER_DAY = 24 * 60 * 60
+        private const val MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1_000
 
         /**
          * Creates a [ModifiedJulianDate] representing the current time.
@@ -63,10 +63,10 @@ class ModifiedJulianDate(private val value: Double) {
          * @return a [ModifiedJulianDate] representing the given time
          */
         fun of(zonedDateTime: ZonedDateTime): ModifiedJulianDate {
-            val currentTimeInEpochSeconds = zonedDateTime.toEpochSecond()
-            val referenceSeconds = referenceEpoch.toEpochSecond()
-            val differenceInSeconds = currentTimeInEpochSeconds - referenceSeconds
-            val julianDay = differenceInSeconds.toDouble() / SECONDS_PER_DAY.toDouble()
+            val dateTimeInMilliseconds = (1_000 * zonedDateTime.toEpochSecond()) + (zonedDateTime.nano / 1_000_000)
+            val referenceInMilliseconds = (1_000 * referenceEpoch.toEpochSecond()) + (referenceEpoch.nano / 1_000_000)
+            val differenceInMilliseconds = dateTimeInMilliseconds - referenceInMilliseconds
+            val julianDay = differenceInMilliseconds.toDouble() / MILLISECONDS_PER_DAY.toDouble()
 
             return ModifiedJulianDate(julianDay)
         }
