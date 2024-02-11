@@ -6,13 +6,13 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 /**
- * The [JulianDate] corresponds to the number of days that have passed since November 24, -4713, 12:00 in the Gregorian calendar.
+ * The [JulianDate] corresponds to the number of days that have passed since November 24, -4713, 12:00 UTC in the Gregorian calendar.
  *
- * @param value the number of days that have passed since November 24, -4713, 12:00 in the Gregorian calendar
+ * @param value the number of days that have passed since November 24, -4713, 12:00 UTC in the Gregorian calendar
  */
 class JulianDate(private val value: Double) {
     /**
-     * @return the number of days that have passed since November 24, -4713, 12:00 in the Gregorian calendar
+     * @return the number of days that have passed since November 24, -4713, 12:00 UTC in the Gregorian calendar
      */
     fun getValue(): Double {
         return value
