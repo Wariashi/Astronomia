@@ -1,9 +1,8 @@
 package de.wariashi.astronomia.calendar.julian
 
+import java.time.Instant
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZoneOffset
-import java.time.ZonedDateTime
 
 /**
  * The [JulianDate] corresponds to the number of days that have passed since November 24, -4713, 12:00 UTC in the Gregorian calendar.
@@ -44,7 +43,7 @@ class JulianDate(private val value: Double) {
         /**
          * The reference epoch, meaning that the [JulianDate] `0.0` corresponds to this date in the Gregorian calendar.
          */
-        private val referenceEpoch = LocalDateTime.of(-4713, 11, 24, 12, 0).atOffset(ZoneOffset.UTC)
+        private val referenceEpoch = LocalDateTime.of(-4713, 11, 24, 12, 0).atOffset(ZoneOffset.UTC).toInstant()
 
         /**
          * The number of milliseconds in a day.
@@ -57,20 +56,20 @@ class JulianDate(private val value: Double) {
          * @return a [JulianDate] representing the current time
          */
         fun now(): JulianDate {
-            val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+            val currentDateTime = Instant.now()
             return of(currentDateTime)
         }
 
         /**
          * Creates a [JulianDate] representing the given time.
          *
-         * @param zonedDateTime the time reference for creating the [JulianDate]
+         * @param instant the time reference for creating the [JulianDate]
          *
          * @return a [JulianDate] representing the given time
          */
-        fun of(zonedDateTime: ZonedDateTime): JulianDate {
-            val dateTimeInMilliseconds = (1_000 * zonedDateTime.toEpochSecond()) + (zonedDateTime.nano / 1_000_000)
-            val referenceInMilliseconds = (1_000 * referenceEpoch.toEpochSecond()) + (referenceEpoch.nano / 1_000_000)
+        fun of(instant: Instant): JulianDate {
+            val dateTimeInMilliseconds = (1_000 * instant.epochSecond) + (instant.nano / 1_000_000)
+            val referenceInMilliseconds = (1_000 * referenceEpoch.epochSecond) + (referenceEpoch.nano / 1_000_000)
             val differenceInMilliseconds = dateTimeInMilliseconds - referenceInMilliseconds
             val julianDay = differenceInMilliseconds.toDouble() / MILLISECONDS_PER_DAY.toDouble()
 

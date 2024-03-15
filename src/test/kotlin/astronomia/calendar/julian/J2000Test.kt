@@ -9,7 +9,7 @@ import java.time.ZoneOffset
 internal class J2000Test {
     @Test
     fun testReferenceEpoch() {
-        val referenceEpoch = LocalDateTime.of(2000, 1, 1, 11, 58, 55, 816_000_000).atZone(ZoneOffset.UTC)
+        val referenceEpoch = LocalDateTime.of(2000, 1, 1, 11, 58, 55, 816_000_000).atZone(ZoneOffset.UTC).toInstant()
         val date = J2000.of(referenceEpoch)
         Assertions.assertEquals(0.0, date.getValue())
     }

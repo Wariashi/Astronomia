@@ -9,7 +9,7 @@ import java.time.ZoneOffset
 internal class JulianDateTest {
     @Test
     fun testReferenceEpoch() {
-        val referenceEpoch = LocalDateTime.of(-4713, 11, 24, 12, 0).atZone(ZoneOffset.UTC)
+        val referenceEpoch = LocalDateTime.of(-4713, 11, 24, 12, 0).atZone(ZoneOffset.UTC).toInstant()
         val date = JulianDate.of(referenceEpoch)
         Assertions.assertEquals(0.0, date.getValue())
     }
